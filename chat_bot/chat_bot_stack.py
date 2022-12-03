@@ -10,7 +10,7 @@ class ChatBotStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
         
         chatbot = lex.CfnBot(self, "WeatherAPI",
-            data_privacy = data_privacy,
+            data_privacy = data_privac,
             idle_session_ttl_in_seconds = 300,
             name = "WeatherAPI",
             role_arn = "arn:aws:iam::aws:policy/AmazonLexFullAccess")

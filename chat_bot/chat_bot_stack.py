@@ -12,5 +12,5 @@ class ChatBotStack(Stack):
         chatbot = lex.CfnBot(self, "WeatherAPI",
             data_privacy = {"ChildDirected": False},
             idle_session_ttl_in_seconds = 300,
-            name = "WeatherAPI",
+            name = "WeatherAP",
             role_arn = "arn:aws:iam::136037166860:role/aws-service-role/lexv2.amazonaws.com/AWSServiceRoleForLexV2Bots")

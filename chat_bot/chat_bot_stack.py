@@ -1,6 +1,7 @@
 from aws_cdk import (
     Stack,
     Duration,
+    aws_iam as iam_,
     aws_lex as lex_,
     aws_lambda as lambda_
 )
@@ -17,6 +18,11 @@ class ChatBotStack(Stack):
             name = "WeatherAPI",
             role_arn = "arn:aws:iam::136037166860:role/aws-service-role/lexv2.amazonaws.com/AWSServiceRoleForLexV2Bots")
         
+        # Calling role funtion that will give Lambda "full Lex access"
+        lambda_role = self.lambda_role()
+        weatherlambda = self.create_lambda("weatherlambda", "./resources", "weatherlambda.lambda_handler", lambda_role)
+
+        
     # Defining my create_lembda function
     # https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_lambda/README.html
     def create_lambda(self, id_, path, handler, role):
@@ -32,3 +38,12 @@ class ChatBotStack(Stack):
             role = role,
             timeout = Duration.seconds(30)
         )
+
+    # https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_iam/Role.html
+    def lambda_role(self):
+        lambda_role = iam_.Role(self, "Role",
+            assumed_by = iam_.ServicePrincipal("lambda.amazonaws.com"),
+            managed_policies = [
+                    iam_.ManagedPolicy.from_aws_managed_policy_name("AmazonLexFullAccess")
+            ]
+)

@@ -12,10 +12,10 @@ class ChatBotStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
         
-        chatbot = lex_.CfnBot(self, "WeatherAPI",
+        chatbot = lex_.CfnBot(self, "WeatherBot",
             data_privacy = {"ChildDirected": False},
             idle_session_ttl_in_seconds = 300,
-            name = "WeatherAPI",
+            name = "WeatherBot",
             role_arn = "arn:aws:iam::136037166860:role/aws-service-role/lexv2.amazonaws.com/AWSServiceRoleForLexV2Bots")
         
         # Calling role funtion that will give Lambda "full Lex access"

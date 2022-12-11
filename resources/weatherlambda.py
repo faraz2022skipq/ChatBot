@@ -22,7 +22,7 @@ def lambda_handler(event, context):
     windspeed = weather.wind.speed
     
     messagecontent = """Temperature = {tem}, 
-            Feels like = {feel}, Speed = {speed} kmph,
+            Feels like = {feel}, Speed = {speed} m/s,
             Humidity = {humidity}%""".format(tem = temperature, feel = feelslike, speed = windspeed, humidity = humidity)
     
     response = {
@@ -39,8 +39,8 @@ def lambda_handler(event, context):
                 {
                     "contentType": "PlainText",
                     "content": messagecontent
+                        # "The temperature is {tem} and feelslike {feel}".format(tem = temperature, feel = feelslike)
                 }
             ]
         }
     return response
-    

@@ -6,18 +6,24 @@ http = urllib3.PoolManager()
 apitoken = "c22c535558cead35f179fe7e668cf71e"
 
 def lambda_handler(event, context):
-    print(event)
     
     city = event["inputTranscript"]
-    print(city)
     
     apiurl = "https://api.openweathermap.org/data/2.5/weather?q={cityname}&appid={APIkey}&units=metric"
     cityurl = apiurl.format(cityname=city, APIkey=apitoken)
     requestresponse = http.request('GET', cityurl)
     data = requestresponse.data
-    x = json.loads(data, object_hook=lambda d: SimpleNamespace(**d))
-    temp = x.main.temp
-    print("TEMPERATURE ", temp)
+    weather = json.loads(data, object_hook=lambda d: SimpleNamespace(**d))
+    temperature = weather.main.temp
+    feelslike = weather.main.feels_like
+    mintemp = weather.main.temp_min
+    maxtemp = weather.main.temp_max
+    humidity = weather.main.humidity
+    windspeed = weather.wind.speed
+    
+    messagecontent = """Temperature = {tem}, 
+            Feels like = {feel}, Speed = {speed} kmph,
+            Humidity = {humidity}%""".format(tem = temperature, feel = feelslike, speed = windspeed, humidity = humidity)
     
     response = {
             "sessionState": {
@@ -32,7 +38,8 @@ def lambda_handler(event, context):
             "messages": [
                 {
                     "contentType": "PlainText",
-                    "content": "The remperature is {tem}".format(tem = temp)
+                    "content": messagecontent
+                        # "The temperature is {tem} and feelslike {feel}".format(tem = temperature, feel = feelslike)
                 }
             ]
         }

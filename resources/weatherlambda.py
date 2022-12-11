@@ -6,6 +6,7 @@ http = urllib3.PoolManager()
 apitoken = "c22c535558cead35f179fe7e668cf71e"
 
 def lambda_handler(event, context):
+    print(event)
     
     city = event["inputTranscript"]
     print(city)
@@ -17,5 +18,23 @@ def lambda_handler(event, context):
     x = json.loads(data, object_hook=lambda d: SimpleNamespace(**d))
     temp = x.main.temp
     print("TEMPERATURE ", temp)
-    return temp
+    
+    response = {
+            "sessionState": {
+                "dialogAction": {
+                    "type": "Close",
+                },
+                "intent": {
+                    "name": "WeatherBot",
+                    "state": "Fulfilled"
+                }
+            },
+            "messages": [
+                {
+                    "contentType": "PlainText",
+                    "content": "The remperature is {tem}".format(tem = temp)
+                }
+            ]
+        }
+    return response
     

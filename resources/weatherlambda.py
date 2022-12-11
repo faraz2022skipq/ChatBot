@@ -39,7 +39,6 @@ def lambda_handler(event, context):
                 {
                     "contentType": "PlainText",
                     "content": messagecontent
-                        # "The temperature is {tem} and feelslike {feel}".format(tem = temperature, feel = feelslike)
                 }
             ]
         }

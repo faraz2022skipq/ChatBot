@@ -21,8 +21,8 @@ def lambda_handler(event, context):
     humidity = weather.main.humidity
     windspeed = weather.wind.speed
     
-    messagecontent = """Temperature = {tem}, 
-            Feels like = {feel}, Speed = {speed} m/s,
+    messagecontent = """Temperature = {tem},\n
+            Feels like = {feel}, Speed = {speed} m/s,\n
             Humidity = {humidity}%""".format(tem = temperature, feel = feelslike, speed = windspeed, humidity = humidity)
     
     response = {

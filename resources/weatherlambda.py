@@ -8,7 +8,7 @@ apitoken = "c22c535558cead35f179fe7e668cf71e"
 def lambda_handler(event, context):
     print (event)
     
-    city = event["interpretations"]["intent"]["slots"]["city"]["value"]["interpretedValue"]
+    city = event["interpretations"][0]["intent"]["slots"]["city"]["value"]["interpretedValue"]
     
     print(city)
     

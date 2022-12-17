@@ -3,7 +3,7 @@ import json
 from types import SimpleNamespace
 
 http = urllib3.PoolManager()
-apitoken = "c22c535558cead35f179fe7e668cf71e"
+apitoken = "***"
 
 def lambda_handler(event, context):
     

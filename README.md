@@ -1,2 +1,2 @@
 # Weather Chatbot
-This is a cloud app that answers your query of weather of particular city.
+This is a cloud app that provides user with the weather of the city of their liking.
